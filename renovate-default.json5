@@ -1,0 +1,203 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "baseBranchPatterns": [
+    "master",
+    "main",
+    "v1.5",
+    "v1.6"
+  ],
+  "dockerfile": {
+    "managerFilePatterns": [
+      "Dockerfile.dapper"
+    ]
+  },
+  "enabledManagers": [
+    "gomod",
+    "dockerfile",
+    "github-actions",
+    "pip_requirements"
+  ],
+  "extends": [
+    "config:recommended",
+    ":gitSignOff"
+  ],
+  "ignorePaths": [
+    "deploy/**",
+    "**/charts/**"
+  ],
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "major": false,
+  "packageRules": [
+    {
+      "enabled": false,
+      "matchDatasources": [
+        "helm",
+        "docker"
+      ]
+    },
+    {
+      "enabled": false,
+      "matchBaseBranches": [
+        "/^v\\d+\\.\\d+/"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ]
+    },
+    {
+      "automerge": true,
+      "groupName": "Patch dependencies (automerge)",
+      "matchUpdateTypes": [
+        "patch"
+      ]
+    },
+    {
+      "groupName": "Minor dependencies",
+      "matchUpdateTypes": [
+        "minor"
+      ]
+    },
+    {
+      "enabled": false,
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchPackageNames": [
+        "github.com/rancher/lasso"
+      ]
+    },
+    {
+      "allowedVersions": "/^v0\\.34\\.\\d+/",
+      "groupName": "k8s.io Go module dependencies (v0.34.x) for master branch",
+      "matchBaseBranches": [
+        "master",
+        "main"
+      ],
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchPackageNames": [
+        "k8s.io/**"
+      ]
+    },
+    {
+      "allowedVersions": "/^v0\\.33\\.\\d+/",
+      "groupName": "k8s.io Go module dependencies (v0.33.x) for v1.6 branch",
+      "matchBaseBranches": [
+        "v1.6"
+      ],
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchPackageNames": [
+        "k8s.io/**"
+      ]
+    },
+    {
+      "allowedVersions": "/^v0\\.32\\.\\d+/",
+      "groupName": "k8s.io Go module dependencies (v0.32.x) for v1.5 branch",
+      "matchBaseBranches": [
+        "v1.5"
+      ],
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchPackageNames": [
+        "k8s.io/**"
+      ]
+    },
+    {
+      "allowedVersions": "/^v1\\.6\\.\\d+/",
+      "groupName": "kubevirt.io Go module dependencies v1.6.x for master branch",
+      "matchBaseBranches": [
+        "master",
+        "main"
+      ],
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchPackageNames": [
+        "kubevirt.io/**"
+      ]
+    },
+    {
+      "allowedVersions": "/^v1\\.5\\.\\d+/",
+      "groupName": "kubevirt.io Go module dependencies v1.5.x for v1.6 branch",
+      "matchBaseBranches": [
+        "v1.6"
+      ],
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchPackageNames": [
+        "k8s.io/**"
+      ]
+    },
+    {
+      "allowedVersions": "/^v1\\.4\\.\\d+/",
+      "groupName": "kubevirt.io Go module dependencies v1.4.x for v1.5 branch",
+      "matchBaseBranches": [
+        "v1.5"
+      ],
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchPackageNames": [
+        "k8s.io/**"
+      ]
+    },
+    {
+      "allowedVersions": "/^v1\\.10\\.\\d+/",
+      "groupName": "longhorn Go module dependencies v1.10.x for master branch",
+      "matchBaseBranches": [
+        "master",
+        "main"
+      ],
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchPackageNames": [
+        "github.com/longhorn/**"
+      ]
+    },
+    {
+      "allowedVersions": "/^v1\\.9\\.\\d+/",
+      "groupName": "longhorn Go module dependencies v1.9.x for v1.6 branch",
+      "matchBaseBranches": [
+        "v1.6"
+      ],
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchPackageNames": [
+        "github.com/longhorn/**"
+      ]
+    },
+    {
+      "allowedVersions": "/^v1\\.8\\.\\d+/",
+      "groupName": "longhorn Go module dependencies v1.8.x for v1.5 branch",
+      "matchBaseBranches": [
+        "v1.5"
+      ],
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchPackageNames": [
+        "github.com/longhorn/**"
+      ]
+    }
+  ],
+  "postUpdateOptions": [
+    "gomodTidy"
+  ],
+  "prHourlyLimit": 12,
+  "schedule": [
+    "after 10am on sunday"
+  ],
+  "semanticCommitScope": "deps",
+  "semanticCommitType": "chore",
+  "semanticCommits": "enabled",
+  "timezone": "Asia/Taipei"
+}
