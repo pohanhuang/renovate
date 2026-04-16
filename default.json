@@ -56,7 +56,7 @@
       "matchPackagePatterns": [
         "k8s\\.io/", 
         "^kubevirt\\.io/",
-        "^github\\.com/rancher/rancher$",
+        "^github\\.com/rancher/rancher$"
       ],
       "groupName": "k8s + kubevirt + rancher dependencies",
       "prBodyNotes": [
@@ -69,17 +69,15 @@
       "matchPackagePatterns": ["^github\\.com/longhorn/"],
       "groupName": "longhorn dependencies",
       "prBodyNotes": [
-        "⚠️ **Check k8s compatibility before merging.**",
+        "⚠️ **Check k8s compatibility before merging.**"
       ]
-    },
+    }
   ],
   "postUpdateOptions": [
     "gomodTidy",
     "gomodVendor"
   ],
-  "schedule": [
-    "after 10am on sunday"
-  ],
+  "schedule": ["at any time"],
   "semanticCommitScope": "deps",
   "semanticCommitType": "chore",
   "semanticCommits": "enabled",
