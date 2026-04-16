@@ -1,5 +1,0 @@
-{
-  "extends": [
-    "github>harvester/renovate:renovate-default.json5"
-  ]
-}
