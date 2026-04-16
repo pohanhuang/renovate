@@ -2,15 +2,17 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "baseBranchPatterns": [
     "master",
-    "main",
-    "v1.5",
-    "v1.6"
+    "main"
   ],
   "dockerfile": {
     "managerFilePatterns": [
       "Dockerfile.dapper"
     ]
   },
+  "prHourlyLimit": 0,
+  "branchConcurrentLimit": 0,
+  "prConcurrentLimit": 0,
+  "recreateWhen": "always",
   "enabledManagers": [
     "gomod",
     "dockerfile",
@@ -31,6 +33,7 @@
   "major": false,
   "packageRules": [
     {
+      "description": "Disable Helm and Docker datasource updates",
       "enabled": false,
       "matchDatasources": [
         "helm",
@@ -38,28 +41,7 @@
       ]
     },
     {
-      "enabled": false,
-      "matchBaseBranches": [
-        "/^v\\d+\\.\\d+/"
-      ],
-      "matchUpdateTypes": [
-        "minor"
-      ]
-    },
-    {
-      "automerge": true,
-      "groupName": "Patch dependencies (automerge)",
-      "matchUpdateTypes": [
-        "patch"
-      ]
-    },
-    {
-      "groupName": "Minor dependencies",
-      "matchUpdateTypes": [
-        "minor"
-      ]
-    },
-    {
+      "description": "Disable github.com/rancher/lasso updates",
       "enabled": false,
       "matchManagers": [
         "gomod"
@@ -69,130 +51,32 @@
       ]
     },
     {
-      "allowedVersions": "/^v0\\.34\\.\\d+/",
-      "groupName": "k8s.io Go module dependencies (v0.34.x) for master branch",
-      "matchBaseBranches": [
-        "master",
-        "main"
+      "description": "Group k8s, kubevirt and rancher packages",
+      "matchManagers": ["gomod"],
+      "matchPackagePatterns": [
+        "k8s\\.io/", 
+        "^kubevirt\\.io/",
+        "^github\\.com/rancher/rancher$",
       ],
-      "matchManagers": [
-        "gomod"
-      ],
-      "matchPackageNames": [
-        "k8s.io/**"
+      "groupName": "k8s + kubevirt + rancher dependencies",
+      "prBodyNotes": [
+        "⚠️ **Check longhorn compatibility before merging.**"
       ]
     },
     {
-      "allowedVersions": "/^v0\\.33\\.\\d+/",
-      "groupName": "k8s.io Go module dependencies (v0.33.x) for v1.6 branch",
-      "matchBaseBranches": [
-        "v1.6"
-      ],
-      "matchManagers": [
-        "gomod"
-      ],
-      "matchPackageNames": [
-        "k8s.io/**"
+      "description": "Group longhorn packages",
+      "matchManagers": ["gomod"],
+      "matchPackagePatterns": ["^github\\.com/longhorn/"],
+      "groupName": "longhorn dependencies",
+      "prBodyNotes": [
+        "⚠️ **Check k8s compatibility before merging.**",
       ]
     },
-    {
-      "allowedVersions": "/^v0\\.32\\.\\d+/",
-      "groupName": "k8s.io Go module dependencies (v0.32.x) for v1.5 branch",
-      "matchBaseBranches": [
-        "v1.5"
-      ],
-      "matchManagers": [
-        "gomod"
-      ],
-      "matchPackageNames": [
-        "k8s.io/**"
-      ]
-    },
-    {
-      "allowedVersions": "/^v1\\.6\\.\\d+/",
-      "groupName": "kubevirt.io Go module dependencies v1.6.x for master branch",
-      "matchBaseBranches": [
-        "master",
-        "main"
-      ],
-      "matchManagers": [
-        "gomod"
-      ],
-      "matchPackageNames": [
-        "kubevirt.io/**"
-      ]
-    },
-    {
-      "allowedVersions": "/^v1\\.5\\.\\d+/",
-      "groupName": "kubevirt.io Go module dependencies v1.5.x for v1.6 branch",
-      "matchBaseBranches": [
-        "v1.6"
-      ],
-      "matchManagers": [
-        "gomod"
-      ],
-      "matchPackageNames": [
-        "k8s.io/**"
-      ]
-    },
-    {
-      "allowedVersions": "/^v1\\.4\\.\\d+/",
-      "groupName": "kubevirt.io Go module dependencies v1.4.x for v1.5 branch",
-      "matchBaseBranches": [
-        "v1.5"
-      ],
-      "matchManagers": [
-        "gomod"
-      ],
-      "matchPackageNames": [
-        "k8s.io/**"
-      ]
-    },
-    {
-      "allowedVersions": "/^v1\\.10\\.\\d+/",
-      "groupName": "longhorn Go module dependencies v1.10.x for master branch",
-      "matchBaseBranches": [
-        "master",
-        "main"
-      ],
-      "matchManagers": [
-        "gomod"
-      ],
-      "matchPackageNames": [
-        "github.com/longhorn/**"
-      ]
-    },
-    {
-      "allowedVersions": "/^v1\\.9\\.\\d+/",
-      "groupName": "longhorn Go module dependencies v1.9.x for v1.6 branch",
-      "matchBaseBranches": [
-        "v1.6"
-      ],
-      "matchManagers": [
-        "gomod"
-      ],
-      "matchPackageNames": [
-        "github.com/longhorn/**"
-      ]
-    },
-    {
-      "allowedVersions": "/^v1\\.8\\.\\d+/",
-      "groupName": "longhorn Go module dependencies v1.8.x for v1.5 branch",
-      "matchBaseBranches": [
-        "v1.5"
-      ],
-      "matchManagers": [
-        "gomod"
-      ],
-      "matchPackageNames": [
-        "github.com/longhorn/**"
-      ]
-    }
   ],
   "postUpdateOptions": [
-    "gomodTidy"
+    "gomodTidy",
+    "gomodVendor"
   ],
-  "prHourlyLimit": 12,
   "schedule": [
     "after 10am on sunday"
   ],
