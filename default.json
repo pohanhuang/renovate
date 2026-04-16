@@ -1,0 +1,87 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "baseBranchPatterns": [
+    "master",
+    "main"
+  ],
+  "dockerfile": {
+    "managerFilePatterns": [
+      "Dockerfile.dapper"
+    ]
+  },
+  "prHourlyLimit": 0,
+  "branchConcurrentLimit": 0,
+  "prConcurrentLimit": 0,
+  "recreateWhen": "always",
+  "enabledManagers": [
+    "gomod",
+    "dockerfile",
+    "github-actions",
+    "pip_requirements"
+  ],
+  "extends": [
+    "config:recommended",
+    ":gitSignOff"
+  ],
+  "ignorePaths": [
+    "deploy/**",
+    "**/charts/**"
+  ],
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "major": false,
+  "packageRules": [
+    {
+      "description": "Disable Helm and Docker datasource updates",
+      "enabled": false,
+      "matchDatasources": [
+        "helm",
+        "docker"
+      ]
+    },
+    {
+      "description": "Disable github.com/rancher/lasso updates",
+      "enabled": false,
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchPackageNames": [
+        "github.com/rancher/lasso"
+      ]
+    },
+    {
+      "description": "Group k8s, kubevirt and rancher packages",
+      "matchManagers": ["gomod"],
+      "matchPackagePatterns": [
+        "k8s\\.io/", 
+        "^kubevirt\\.io/",
+        "^github\\.com/rancher/rancher$"
+      ],
+      "groupName": "k8s + kubevirt + rancher dependencies",
+      "prBodyNotes": [
+        "⚠️ **Check longhorn compatibility before merging.**"
+      ]
+    },
+    {
+      "description": "Group longhorn packages",
+      "matchManagers": ["gomod"],
+      "matchPackagePatterns": ["^github\\.com/longhorn/"],
+      "groupName": "longhorn dependencies",
+      "prBodyNotes": [
+        "⚠️ **Check k8s compatibility before merging.**"
+      ]
+    }
+  ],
+  "postUpdateOptions": [
+    "gomodTidy",
+    "gomodVendor"
+  ],
+  "schedule": [
+    "after 10am on sunday"
+  ],
+  "semanticCommitScope": "deps",
+  "semanticCommitType": "chore",
+  "semanticCommits": "enabled",
+  "timezone": "Asia/Taipei"
+}
