@@ -1,5 +1,159 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "prHourlyLimit": 0,
+  "branchConcurrentLimit": 0,
+  "prConcurrentLimit": 0,
+  "recreateWhen": "always",
+  "enabledManagers": [
+    "gomod",
+    "dockerfile",
+    "github-actions",
+    "pip_requirements"
+  ],
   "extends": [
-    "github>harvester/renovate:renovate-default.json5"
-  ]
+    "config:recommended",
+    ":gitSignOff"
+  ],
+  "ignorePaths": [
+    "deploy/**",
+    "**/charts/**",
+    "vendor/**"
+  ],
+  "dockerfile": {
+    "managerFilePatterns": [
+      "package/Dockerfile$",
+      "package/Dockerfile\\..*",
+      "package/.*/Dockerfile$"
+    ]
+  },
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "description": "Auto-merge patch updates after 14 days stabilization",
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "minimumReleaseAge": "14 days"
+    },
+    {
+      "description": "Auto-merge security updates after 14 days",
+      "matchCategories": ["security"],
+      "automerge": true,
+      "minimumReleaseAge": "14 days"
+    },
+    {
+      "description": "Minor updates require human review",
+      "matchUpdateTypes": ["minor"],
+      "automerge": false,
+      "labels": ["needs-review"]
+    },
+    {
+      "description": "Release branches: only patch and security",
+      "matchBaseBranches": ["/^v\\d+(\\.\\d+)+/"],
+      "matchUpdateTypes": ["major", "minor"],
+      "enabled": false
+    },
+    {
+      "description": "Disable Helm datasource updates",
+      "enabled": false,
+      "matchDatasources": ["helm"]
+    },
+    {
+      "description": "Disable major updates for Go modules",
+      "matchManagers": ["gomod"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
+      "description": "Disable github.com/rancher/lasso updates",
+      "enabled": false,
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchPackageNames": [
+        "github.com/rancher/lasso"
+      ]
+    },
+    {
+      "description": "Disable kubevirt updates",
+      "enabled": false,
+      "matchManagers": ["gomod"],
+      "matchPackagePatterns": [
+        "^kubevirt\\.io/"
+      ]
+    },
+    {
+      "description": "Group golang toolchain - go.mod",
+      "matchManagers": ["gomod"],
+      "matchDepNames": ["go"],
+      "matchPackageNames": ["go"],
+      "matchDepTypes": ["golang"],
+      "groupName": "golang toolchain",
+      "semanticCommitType": "chore",
+      "semanticCommitScope": "deps",
+      "automerge": false,
+      "rangeStrategy": "bump"
+    },
+    {
+      "description": "Group golang toolchain - Dockerfile",
+      "matchManagers": ["dockerfile"],
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["golang"],
+      "matchDepTypes": ["stage"],
+      "matchUpdateTypes": ["major", "minor", "patch"],
+      "groupName": "golang toolchain",
+      "semanticCommitType": "chore",
+      "semanticCommitScope": "deps",
+      "automerge": false,
+      "rangeStrategy": "bump"
+    },
+    {
+      "description": "Group all BCI base images together",
+      "enabled": true,
+      "matchManagers": ["dockerfile"],
+      "matchDatasources": ["docker"],
+      "matchPackagePatterns": [
+        "^registry\\.suse\\.com/bci/",
+        "^registry\\.opensuse\\.org/"
+      ],
+      "groupName": "SUSE BCI base images",
+      "semanticCommitType": "chore",
+      "semanticCommitScope": "deps",
+      "automerge": false,
+      "rangeStrategy": "bump"
+    },
+    {
+      "description": "Group k8s and rancher packages",
+      "matchManagers": ["gomod"],
+      "matchPackagePatterns": [
+        "k8s\\.io/",
+        "^github\\.com/rancher/rancher$"
+      ],
+      "automerge": false,
+      "groupName": "k8s + rancher dependencies",
+      "prBodyNotes": [
+        "⚠️ **Check longhorn compatibility before merging.**"
+      ]
+    },
+    {
+      "description": "Group longhorn packages",
+      "matchManagers": ["gomod"],
+      "matchPackagePatterns": ["^github\\.com/longhorn/"],
+      "groupName": "longhorn dependencies",
+      "automerge": false,
+      "prBodyNotes": [
+        "⚠️ **Check k8s compatibility before merging.**"
+      ]
+    }
+  ],
+  "postUpdateOptions": [
+    "gomodTidy",
+    "gomodVendor"
+  ],
+  "schedule": ["at any time"],
+  "semanticCommitScope": "deps",
+  "semanticCommitType": "chore",
+  "semanticCommits": "enabled",
+  "timezone": "Asia/Taipei"
 }
