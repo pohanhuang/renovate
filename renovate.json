@@ -75,6 +75,17 @@
       ]
     },
     {
+      "description": "Disable update longhorn packages",
+      "enabled": false,
+      "matchManagers": ["gomod"],
+      "matchPackagePatterns": ["^github\\.com/longhorn/"],
+      "groupName": "longhorn dependencies",
+      "automerge": false,
+      "prBodyNotes": [
+        "⚠️ **Check k8s compatibility before merging.**"
+      ]
+    },
+    {
       "description": "Disable kubevirt updates",
       "enabled": false,
       "matchManagers": ["gomod"],
@@ -133,16 +144,6 @@
       "groupName": "k8s + rancher dependencies",
       "prBodyNotes": [
         "⚠️ **Check longhorn compatibility before merging.**"
-      ]
-    },
-    {
-      "description": "Group longhorn packages",
-      "matchManagers": ["gomod"],
-      "matchPackagePatterns": ["^github\\.com/longhorn/"],
-      "groupName": "longhorn dependencies",
-      "automerge": false,
-      "prBodyNotes": [
-        "⚠️ **Check k8s compatibility before merging.**"
       ]
     }
   ],
