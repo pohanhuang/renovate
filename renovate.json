@@ -12,7 +12,8 @@
   ],
   "extends": [
     "config:recommended",
-    ":gitSignOff"
+    ":gitSignOff",
+    ":disableDependencyDashboard"
   ],
   "ignorePaths": [
     "deploy/**",
