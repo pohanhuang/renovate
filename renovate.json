@@ -2,7 +2,12 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "prHourlyLimit": 0,
   "prConcurrentLimit": 0,
-  "baseBranchPatterns": ["master", "main"],
+  "dependencyDashboardApproval": false,
+  "dependencyDashboard": false,
+  "baseBranchPatterns": [
+    "master",
+    "main"
+  ],
   "recreateWhen": "always",
   "enabledManagers": [
     "gomod",
@@ -33,37 +38,56 @@
   "packageRules": [
     {
       "description": "Auto-merge patch updates after 7 days stabilization",
-      "matchUpdateTypes": ["patch"],
+      "matchUpdateTypes": [
+        "patch"
+      ],
       "automerge": true,
       "minimumReleaseAge": "7 days"
     },
     {
       "description": "Auto-merge security updates after 7 days",
-      "matchCategories": ["security"],
+      "matchCategories": [
+        "security"
+      ],
       "automerge": true,
       "minimumReleaseAge": "7 days"
     },
     {
       "description": "Minor updates require human review",
-      "matchUpdateTypes": ["minor"],
+      "matchUpdateTypes": [
+        "minor"
+      ],
       "automerge": false,
-      "labels": ["needs-review"]
+      "labels": [
+        "needs-review"
+      ]
     },
     {
       "description": "Release branches: only patch and security",
-      "matchBaseBranches": ["/^v\\d+(\\.\\d+)+/"],
-      "matchUpdateTypes": ["major", "minor"],
+      "matchBaseBranches": [
+        "/^v\\d+(\\.\\d+)+/"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
       "enabled": false
     },
     {
       "description": "Disable Helm datasource updates",
       "enabled": false,
-      "matchDatasources": ["helm"]
+      "matchDatasources": [
+        "helm"
+      ]
     },
     {
       "description": "Disable major updates for Go modules",
-      "matchManagers": ["gomod"],
-      "matchUpdateTypes": ["major"],
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
       "enabled": false
     },
     {
@@ -79,8 +103,12 @@
     {
       "description": "Disable update longhorn packages",
       "enabled": false,
-      "matchManagers": ["gomod"],
-      "matchPackagePatterns": ["^github\\.com/longhorn/"],
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchPackagePatterns": [
+        "^github\\.com/longhorn/"
+      ],
       "groupName": "longhorn dependencies",
       "automerge": false,
       "prBodyNotes": [
@@ -90,17 +118,27 @@
     {
       "description": "Disable kubevirt updates",
       "enabled": false,
-      "matchManagers": ["gomod"],
+      "matchManagers": [
+        "gomod"
+      ],
       "matchPackagePatterns": [
         "^kubevirt\\.io/"
       ]
     },
     {
       "description": "Group golang toolchain - go.mod",
-      "matchManagers": ["gomod"],
-      "matchDepNames": ["go"],
-      "matchPackageNames": ["go"],
-      "matchDepTypes": ["golang"],
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchDepNames": [
+        "go"
+      ],
+      "matchPackageNames": [
+        "go"
+      ],
+      "matchDepTypes": [
+        "golang"
+      ],
       "groupName": "golang toolchain",
       "semanticCommitType": "chore",
       "semanticCommitScope": "deps",
@@ -109,11 +147,23 @@
     },
     {
       "description": "Group golang toolchain - Dockerfile",
-      "matchManagers": ["dockerfile"],
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["golang"],
-      "matchDepTypes": ["stage"],
-      "matchUpdateTypes": ["major", "minor", "patch"],
+      "matchManagers": [
+        "dockerfile"
+      ],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "golang"
+      ],
+      "matchDepTypes": [
+        "stage"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
       "groupName": "golang toolchain",
       "semanticCommitType": "chore",
       "semanticCommitScope": "deps",
@@ -123,8 +173,12 @@
     {
       "description": "Group all BCI base images together",
       "enabled": true,
-      "matchManagers": ["dockerfile"],
-      "matchDatasources": ["docker"],
+      "matchManagers": [
+        "dockerfile"
+      ],
+      "matchDatasources": [
+        "docker"
+      ],
       "matchPackagePatterns": [
         "^registry\\.suse\\.com/bci/",
         "^registry\\.opensuse\\.org/"
@@ -137,7 +191,9 @@
     },
     {
       "description": "Group k8s and rancher packages",
-      "matchManagers": ["gomod"],
+      "matchManagers": [
+        "gomod"
+      ],
       "matchPackagePatterns": [
         "k8s\\.io/",
         "^github\\.com/rancher/rancher$"
@@ -153,7 +209,9 @@
     "gomodTidy",
     "gomodVendor"
   ],
-  "schedule": ["at any time"],
+  "schedule": [
+    "at any time"
+  ],
   "semanticCommitScope": "deps",
   "semanticCommitType": "chore",
   "semanticCommits": "enabled",
