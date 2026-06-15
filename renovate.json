@@ -6,6 +6,7 @@
     "master",
     "main"
   ],
+  "dependencyDashboard": false,
   "recreateWhen": "always",
   "enabledManagers": [
     "gomod",
