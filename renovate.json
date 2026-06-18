@@ -16,6 +16,8 @@
   ],
   "extends": [
     "config:recommended",
+    ":semanticCommitTypeAll(chore)",
+    "mergeConfidence:age-confidence-badges",
     ":gitSignOff"
   ],
   "ignorePaths": [
@@ -25,9 +27,8 @@
   ],
   "dockerfile": {
     "managerFilePatterns": [
-      "package/Dockerfile$",
-      "package/Dockerfile\\..*",
-      "package/.*/Dockerfile$"
+    "(^|/)Dockerfile$",
+    "(^|/)Dockerfile\\.[^/]*$"
     ]
   },
   "lockFileMaintenance": {
@@ -59,6 +60,28 @@
       "labels": [
         "needs-review"
       ]
+    },
+    {
+      "description": "Use dependencies label for real dependency updates",
+      "matchManagers": [
+        "gomod",
+        "dockerfile",
+        "pip_requirements"
+      ],
+      "addLabels": [
+        "dependencies"
+      ]
+    },
+    {
+      "description": "Use ci scope for GitHub Actions updates",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "addLabels": [
+        "ci"
+      ],
+      "semanticCommitType": "chore",
+      "semanticCommitScope": "ci"
     },
     {
       "description": "Release branches: only patch and security",
@@ -138,9 +161,10 @@
         "golang"
       ],
       "groupName": "golang toolchain",
-      "semanticCommitType": "chore",
-      "semanticCommitScope": "deps",
+      "semanticCommitType": "deps",
+      "semanticCommitScope": "go",
       "automerge": false,
+      "minimumReleaseAge": "0 days",
       "rangeStrategy": "bump"
     },
     {
@@ -152,10 +176,12 @@
         "docker"
       ],
       "matchPackageNames": [
-        "golang"
+        "golang",
+        "registry.suse.com/bci/golang"
       ],
       "matchDepTypes": [
-        "stage"
+        "stage",
+        "final"
       ],
       "matchUpdateTypes": [
         "major",
@@ -163,9 +189,10 @@
         "patch"
       ],
       "groupName": "golang toolchain",
-      "semanticCommitType": "chore",
-      "semanticCommitScope": "deps",
+      "semanticCommitType": "deps",
+      "semanticCommitScope": "go",
       "automerge": false,
+      "minimumReleaseAge": "0 days",
       "rangeStrategy": "bump"
     },
     {
@@ -177,9 +204,10 @@
       "matchDatasources": [
         "docker"
       ],
-      "matchPackagePatterns": [
-        "^registry\\.suse\\.com/bci/",
-        "^registry\\.opensuse\\.org/"
+      "matchPackageNames": [
+        "registry.suse.com/bci/**",
+        "registry.opensuse.org/**",
+        "!registry.suse.com/bci/golang"
       ],
       "groupName": "SUSE BCI base images",
       "semanticCommitType": "chore",
@@ -194,7 +222,8 @@
       ],
       "matchPackagePatterns": [
         "k8s\\.io/",
-        "^github\\.com/rancher/rancher$"
+        "^github\\.com/rancher/",
+        "^github\\.com/k3s-io/"
       ],
       "automerge": false,
       "groupName": "k8s + rancher dependencies",
