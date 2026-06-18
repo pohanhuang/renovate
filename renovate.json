@@ -187,6 +187,7 @@
         "minor",
         "patch"
       ],
+      "versioning": "semver",
       "groupName": "golang toolchain",
       "semanticCommitType": "deps",
       "semanticCommitScope": "go",
