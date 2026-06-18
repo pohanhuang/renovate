@@ -162,8 +162,8 @@
         "golang"
       ],
       "groupName": "golang toolchain",
-      "semanticCommitType": "chore",
-      "semanticCommitScope": "deps",
+      "semanticCommitType": "deps",
+      "semanticCommitScope": "go",
       "automerge": false,
       "rangeStrategy": "bump"
     },
@@ -187,8 +187,8 @@
         "patch"
       ],
       "groupName": "golang toolchain",
-      "semanticCommitType": "chore",
-      "semanticCommitScope": "deps",
+      "semanticCommitType": "deps",
+      "semanticCommitScope": "go",
       "automerge": false,
       "rangeStrategy": "bump"
     },
