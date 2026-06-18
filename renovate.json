@@ -62,6 +62,14 @@
       ]
     },
     {
+      "description": "Use ci scope for GitHub Actions updates",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "semanticCommitType": "chore",
+      "semanticCommitScope": "ci"
+    },
+    {
       "description": "Release branches: only patch and security",
       "matchBaseBranches": [
         "/^v\\d+(\\.\\d+)+/"
