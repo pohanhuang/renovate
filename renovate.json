@@ -17,6 +17,7 @@
   "extends": [
     "config:recommended",
     ":semanticCommitTypeAll(chore)",
+    "mergeConfidence:age-confidence-badges",
     ":gitSignOff"
   ],
   "ignorePaths": [
@@ -62,9 +63,23 @@
       ]
     },
     {
+      "description": "Use dependencies label for real dependency updates",
+      "matchManagers": [
+        "gomod",
+        "dockerfile",
+        "pip_requirements"
+      ],
+      "addLabels": [
+        "dependencies"
+      ]
+    },
+    {
       "description": "Use ci scope for GitHub Actions updates",
       "matchManagers": [
         "github-actions"
+      ],
+      "addLabels": [
+        "ci"
       ],
       "semanticCommitType": "chore",
       "semanticCommitScope": "ci"
