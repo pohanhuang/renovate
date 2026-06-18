@@ -16,6 +16,7 @@
   ],
   "extends": [
     "config:recommended",
+    ":semanticCommitTypeAll(chore)",
     ":gitSignOff"
   ],
   "ignorePaths": [
@@ -192,9 +193,11 @@
       "matchManagers": [
         "gomod"
       ],
-      "matchPackagePatterns": [
-        "k8s\\.io/",
-        "^github\\.com/rancher/rancher$"
+      "matchPackageNames": [
+        "/^k8s\\.io//",
+        "/^github\\.com/rancher/rancher(?:/pkg/(?:apis|client))?$/",
+        "/^github\\.com/rancher/(?:apiserver|dynamiclistener|fleet/pkg/apis|norman|steve|system-upgrade-controller/pkg/apis|wrangler(?:/v3)?)$/",
+        "/^github\\.com/k3s-io/helm-controller$/"
       ],
       "automerge": false,
       "groupName": "k8s + rancher dependencies",
