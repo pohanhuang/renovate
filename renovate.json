@@ -179,7 +179,8 @@
         "registry.suse.com/bci/golang"
       ],
       "matchDepTypes": [
-        "stage"
+        "stage",
+        "final"
       ],
       "matchUpdateTypes": [
         "major",
