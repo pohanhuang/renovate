@@ -27,9 +27,8 @@
   ],
   "dockerfile": {
     "managerFilePatterns": [
-      "package/Dockerfile$",
-      "package/Dockerfile\\..*",
-      "package/.*/Dockerfile$"
+    "(^|/)Dockerfile$",
+    "(^|/)Dockerfile\\.[^/]*$"
     ]
   },
   "lockFileMaintenance": {
