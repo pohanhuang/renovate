@@ -16,6 +16,8 @@
   ],
   "extends": [
     "config:recommended",
+    ":semanticCommitTypeAll(chore)",
+    "mergeConfidence:age-confidence-badges",
     ":gitSignOff"
   ],
   "ignorePaths": [
@@ -59,6 +61,28 @@
       "labels": [
         "needs-review"
       ]
+    },
+    {
+      "description": "Use dependencies label for real dependency updates",
+      "matchManagers": [
+        "gomod",
+        "dockerfile",
+        "pip_requirements"
+      ],
+      "addLabels": [
+        "dependencies"
+      ]
+    },
+    {
+      "description": "Use ci scope for GitHub Actions updates",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "addLabels": [
+        "ci"
+      ],
+      "semanticCommitType": "chore",
+      "semanticCommitScope": "ci"
     },
     {
       "description": "Release branches: only patch and security",
@@ -192,9 +216,11 @@
       "matchManagers": [
         "gomod"
       ],
-      "matchPackagePatterns": [
-        "k8s\\.io/",
-        "^github\\.com/rancher/rancher$"
+      "matchPackageNames": [
+        "/^k8s\\.io//",
+        "/^github\\.com/rancher/rancher(?:/pkg/(?:apis|client))?$/",
+        "/^github\\.com/rancher/(?:apiserver|dynamiclistener|fleet/pkg/apis|norman|steve|system-upgrade-controller/pkg/apis|wrangler(?:/v3)?)$/",
+        "/^github\\.com/k3s-io/helm-controller$/"
       ],
       "automerge": false,
       "groupName": "k8s + rancher dependencies",
