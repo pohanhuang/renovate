@@ -175,7 +175,8 @@
         "docker"
       ],
       "matchPackageNames": [
-        "golang"
+        "golang",
+        "registry.suse.com/bci/golang"
       ],
       "matchDepTypes": [
         "stage"
