@@ -26,7 +26,7 @@ Current defaults include:
 ## Branch Policy
 
 - `main` and `master`: normal update flow
-- Release branches matching `v*`: only patch and security updates are enabled
+- Release branches matching `v*`: not scanned by default; if a repository opts in via `baseBranchPatterns`, only patch and security updates are enabled
 
 ## Usage
 
@@ -44,4 +44,4 @@ Add repo-specific overrides locally if needed.
 
 ## Main Config
 
-The shared Renovate configuration lives in [renovate.json](/home/po/suse/dependency-automation/renovate.json).
+The shared Renovate configuration lives in [renovate.json](./renovate.json).
