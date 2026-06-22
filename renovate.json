@@ -230,6 +230,12 @@
       "prBodyNotes": [
         "⚠️ **Check longhorn compatibility before merging.**"
       ]
+    },
+    {
+      "description": "Label PRs with target branch name",
+      "addLabels": [
+        "{{baseBranch}}"
+      ]
     }
   ],
   "postUpdateOptions": [
