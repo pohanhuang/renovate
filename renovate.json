@@ -29,8 +29,8 @@
   ],
   "dockerfile": {
     "managerFilePatterns": [
-    "(^|/)Dockerfile$",
-    "(^|/)Dockerfile\\.[^/]*$"
+      "(^|/)Dockerfile$",
+      "(^|/)Dockerfile\\.[^/]*$"
     ]
   },
   "lockFileMaintenance": {
@@ -187,8 +187,7 @@
       ],
       "matchUpdateTypes": [
         "major",
-        "minor",
-        "patch"
+        "minor"
       ],
       "groupName": "golang toolchain",
       "semanticCommitType": "deps",
@@ -196,6 +195,20 @@
       "automerge": false,
       "minimumReleaseAge": "0 days",
       "rangeStrategy": "bump"
+    },
+    {
+      "description": "Disable patch updates for Go toolchain Docker images",
+      "matchManagers": [
+        "dockerfile"
+      ],
+      "matchPackageNames": [
+        "golang",
+        "registry.suse.com/bci/golang"
+      ],
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "enabled": false
     },
     {
       "description": "Group all BCI base images together",
