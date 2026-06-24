@@ -249,7 +249,7 @@
     {
       "description": "Label PRs with target branch name",
       "addLabels": [
-        "{{baseBranch}}"
+        "renovate/{{baseBranch}}"
       ]
     }
   ],
