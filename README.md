@@ -8,8 +8,9 @@ This repository centralizes Renovate settings so other repositories can reuse th
 
 Current defaults include:
 
-- Auto-merge `patch` and security updates after `7 days`
-- Keep `minor` updates as manual-review PRs
+- **Security-only updates**: Only dependencies with known vulnerabilities will be updated (need manual review)
+- All non-security updates (patch, minor, major) are disabled by default
+- OSV vulnerability database integration enabled via `osvVulnerabilityAlerts`
 - Disable some risky or manually managed updates such as `Longhorn`, `kubevirt`, Helm, and Go major bumps
 - Group related dependencies into a single PR, such as:
   - `golang toolchain`
