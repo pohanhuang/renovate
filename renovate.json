@@ -10,6 +10,7 @@
   ],
   "dependencyDashboard": false,
   "recreateWhen": "always",
+  "osvVulnerabilityAlerts": true,
   "enabledManagers": [
     "gomod",
     "dockerfile",
@@ -38,19 +39,22 @@
   },
   "packageRules": [
     {
-      "description": "Auto-merge patch updates after 7 days stabilization",
-      "matchUpdateTypes": [
-        "patch"
+      "description": "Disable all non-security updates",
+      "enabled": false,
+      "matchPackageNames": [
+        "*"
       ],
-      "automerge": true,
-      "minimumReleaseAge": "7 days"
+      "excludeCategories": [
+        "security"
+      ]
     },
     {
-      "description": "Auto-merge security updates after 7 days",
+      "description": "Enable and configure security updates",
       "matchCategories": [
         "security"
       ],
-      "automerge": true,
+      "enabled": true,
+      "automerge": false,
       "minimumReleaseAge": "7 days"
     },
     {
@@ -150,6 +154,7 @@
     },
     {
       "description": "Group golang toolchain - go.mod",
+      "enabled": true,
       "matchManagers": [
         "gomod"
       ],
@@ -171,6 +176,7 @@
     },
     {
       "description": "Group golang toolchain - Dockerfile",
+      "enabled": true,
       "matchManagers": [
         "dockerfile"
       ],
@@ -232,6 +238,7 @@
     },
     {
       "description": "Group k8s and rancher packages",
+      "enabled": true,
       "matchManagers": [
         "gomod"
       ],
