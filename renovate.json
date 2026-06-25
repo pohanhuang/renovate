@@ -125,7 +125,7 @@
     },
     {
       "description": "Group all BCI base images together",
-      "enabled": true,
+      "enabled": false,
       "matchManagers": ["dockerfile"],
       "matchDatasources": ["docker"],
       "matchPackageNames": [
