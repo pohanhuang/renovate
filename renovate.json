@@ -26,9 +26,10 @@
   ],
   "vulnerabilityAlerts": {
     "enabled": true,
-    "labels": ["needs-review", "security"],
+    "labels": ["needs-review"],
     "automerge": false
   },
+  "reviewers": ["harvester/dev"],
   "ignorePaths": [
     "deploy/**",
     "**/charts/**",
@@ -114,6 +115,13 @@
       "semanticCommitScope": "go",
       "automerge": false,
       "rangeStrategy": "bump"
+    },
+    {
+      "description": "Allow vulnerability updates for indirect Go modules",
+      "matchManagers": ["gomod"],
+      "matchDepTypes": ["indirect"],
+      "matchCategories": ["security"],
+      "enabled": true
     },
     {
       "description": "Group all BCI base images together",
