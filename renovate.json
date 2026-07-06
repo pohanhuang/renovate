@@ -32,8 +32,7 @@
   "reviewers": ["harvester/dev"],
   "ignorePaths": [
     "deploy/**",
-    "**/charts/**",
-    "vendor/**"
+    "**/charts/**"
   ],
   "dockerfile": {
     "managerFilePatterns": [
