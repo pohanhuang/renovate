@@ -6,7 +6,8 @@
     "master",
     "main",
     "v1.7",
-    "v1.8"
+    "v1.8",
+    "v1.9"
   ],
   "dependencyDashboard": false,
   "recreateWhen": "always",
