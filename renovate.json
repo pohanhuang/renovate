@@ -28,7 +28,18 @@
   "vulnerabilityAlerts": {
     "enabled": true,
     "labels": ["needs-review"],
-    "automerge": false
+    "automerge": false,
+    "force": {
+      "packageRules": [
+        { 
+          "description": "Only allow patch updates for github.com/harvester/harvester on release branches",
+          "matchPackageNames": [
+            "github.com/harvester/harvester"
+          ],
+          "allowedVersions": "~{{major}}.{{minor}}.0"
+        }
+      ]
+    }
   },
   "reviewers": ["harvester/dev"],
   "ignorePaths": [
@@ -88,14 +99,7 @@
     },
     {
       "description": "Disable kubevirt updates",
-      "enabled": false,
-    },
-    {
-      "description": "Only allow patch updates for github.com/harvester/harvester",
-      "matchPackageNames": [
-        "github.com/harvester/harvester"
-      ],
-      "allowedVersions": "~{{major}}.{{minor}}.0"
+      "enabled": false
     },
     {
       "description": "Group golang toolchain - go.mod",
