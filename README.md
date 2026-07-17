@@ -29,6 +29,12 @@ Current defaults include:
 - `main` and `master`: normal update flow
 - Release branches matching `v*`: not scanned by default; if a repository opts in via `baseBranchPatterns`, only patch and security updates are enabled
 
+### Forcing Patch-Only Updates on Release Branches
+
+**Problem**: `osvVulnerabilityAlerts` ignores `major.enabled: false`, and standard `packageRules` cannot block major updates for OSV vulnerability fixes ([renovate#42760](https://github.com/renovatebot/renovate/issues/42760)).
+
+**Solution**: Use `vulnerabilityAlerts.force.packageRules` with `allowedVersions` to restrict updates to the current minor version (e.g., `~1.7.0` on the `v1.7` branch).
+
 ## Usage
 
 In a repository that uses this shared config, extend it from `renovate.json`:
